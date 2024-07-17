@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import DriverCreationForm, DriverLicenseUpdateForm
-from .models import Driver, Car, Manufacturer
+from taxi.forms import DriverCreationForm, DriverLicenseUpdateForm
+from taxi.models import Driver, Car, Manufacturer
 
 
 @login_required
@@ -31,8 +31,8 @@ def index(request):
 
 
 def assign_driver_to_car(request, car_id, driver_id):
-    car = Car.objects.get(id=car_id)
-    driver = Driver.objects.get(id=driver_id)
+    car = get_object_or_404(Car, id=car_id)
+    driver = get_object_or_404(Driver, id=driver_id)
 
     car.drivers.add(driver)
 
@@ -40,8 +40,8 @@ def assign_driver_to_car(request, car_id, driver_id):
 
 
 def delete_driver_from_car(request, car_id, driver_id):
-    car = Car.objects.get(id=car_id)
-    driver = Driver.objects.get(id=driver_id)
+    car = get_object_or_404(Car, id=car_id)
+    driver = get_object_or_404(Driver, id=driver_id)
 
     car.drivers.remove(driver)
 

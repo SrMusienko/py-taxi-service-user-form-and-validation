@@ -1,27 +1,28 @@
 from django.urls import path
 
 from .views import (
-    index,
-    CarListView,
-    CarDetailView,
-    CarCreateView,
-    CarUpdateView,
-    CarDeleteView,
-    DriverListView,
-    DriverDetailView,
-    ManufacturerListView,
-    ManufacturerCreateView,
-    ManufacturerUpdateView,
-    ManufacturerDeleteView,
-    DriverCreateView,
-    DriverUpdateView,
-    DriverDeleteView,
     assign_driver_to_car,
+    CarCreateView,
+    CarDeleteView,
+    CarDetailView,
+    CarListView,
+    CarUpdateView,
     delete_driver_from_car,
+    DriverCreateView,
+    DriverDeleteView,
+    DriverDetailView,
+    DriverListView,
+    DriverUpdateView,
+    index,
+    ManufacturerCreateView,
+    ManufacturerDeleteView,
+    ManufacturerListView,
+    ManufacturerUpdateView,
 )
 
 urlpatterns = [
     path("", index, name="index"),
+
     path(
         "manufacturers/",
         ManufacturerListView.as_view(),
@@ -42,63 +43,68 @@ urlpatterns = [
         ManufacturerDeleteView.as_view(),
         name="manufacturer-delete",
     ),
+
     path(
         "cars/",
         CarListView.as_view(),
-        name="car-list"
-    ),
-    path(
-        "cars/<int:pk>/",
-        CarDetailView.as_view(),
-        name="car-detail"
+        name="car-list",
     ),
     path(
         "cars/create/",
         CarCreateView.as_view(),
-        name="car-create"
+        name="car-create",
+    ),
+    path(
+        "cars/<int:pk>/",
+        CarDetailView.as_view(),
+        name="car-detail",
     ),
     path(
         "cars/<int:pk>/update/",
         CarUpdateView.as_view(),
-        name="car-update"
+        name="car-update",
     ),
     path(
         "cars/<int:pk>/delete/",
         CarDeleteView.as_view(),
-        name="car-delete"
+        name="car-delete",
     ),
+
     path(
         "drivers/",
         DriverListView.as_view(),
-        name="driver-list"
-    ),
-    path(
-        "drivers/<int:pk>/", DriverDetailView.as_view(), name="driver-detail"
+        name="driver-list",
     ),
     path(
         "drivers/create/",
         DriverCreateView.as_view(),
-        name="driver-create"
+        name="driver-create",
+    ),
+    path(
+        "drivers/<int:pk>/",
+        DriverDetailView.as_view(),
+        name="driver-detail",
     ),
     path(
         "drivers/<int:pk>/update/",
         DriverUpdateView.as_view(),
-        name="driver-update"
+        name="driver-update",
     ),
     path(
         "drivers/<int:pk>/delete/",
         DriverDeleteView.as_view(),
-        name="driver-delete"
+        name="driver-delete",
     ),
+
     path(
-        "assign/driver/<int:driver_id>/to/car/<int:car_id>",
+        "drivers/<int:driver_id>/assign/car/<int:car_id>/",
         assign_driver_to_car,
-        name="driver-assign-to-car"
+        name="driver-assign-to-car",
     ),
     path(
-        "delete/driver/<int:driver_id>/from/car/<int:car_id>/",
+        "drivers/<int:driver_id>/unassign/car/<int:car_id>/",
         delete_driver_from_car,
-        name="driver-delete-from-car"
+        name="driver-unassign-from-car",
     ),
 ]
 

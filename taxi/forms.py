@@ -2,17 +2,20 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Driver, Car
+from taxi.models import Driver
 
 
 def validate_license_number(value):
     if len(value) != 8:
         raise ValidationError("License number must have 8 characters!")
-    elif not value[0:3].isalpha():
+
+    if not value[:3].isalpha():
         raise ValidationError("First 3 characters must be letters!")
-    elif not value[0:3].isupper():
+
+    if not value[:3].isupper():
         raise ValidationError("First 3 characters must be uppercase letters!")
-    elif not value[-5:].isdigit():
+
+    if not value[3:].isdigit():
         raise ValidationError("Last 5 characters must be digits!")
 
 
